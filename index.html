@@ -17,19 +17,44 @@
 				est difficile de s'arrêter.
 			</p>
 
+			<section class="menu">
+				<h2>Menu</h2>
+				<div class="menu-item" v-for="item in simpleMenu">
+					<img
+						class="menu-item__image"
+						v-bind:src=" item.image.source "
+						v-bind:alt="item.image.alt"
+					/>
+					<div>
+						<h3>{{ item.name }}</h3>
+						<p v-if="item.inStock">En stock</p>
+						<p v-else>En rupture de stock</p>
+						<div v-if="item.inStock">
+							<label for="add-item-quantity">Quantité :</label>
+							<input id="add-item-quantity" type="number" value="0"/>
+							<button @click="addToShoppingCart(item)">Ajouter au panier d'achat</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<aside class="shopping-cart">
+				<h2>Panier d'achat: {{ totalCartItems }} articles</h2>
+			</aside>
+
 			<h2>Contactez nous</h2>
-			<p>Adresse : {{ Adresse }}</p>
-			<p>Téléphone : {{ Telephone }}</p>
-			<p>Email : {{ Email }}</p>
+			<p>Adresse : {{ address }}</p>
+			<p>Téléphone : {{ phone }}</p>
+			<p>Email : {{ email }}</p>
 			<p>Horaires :</p>
 			<ul>
-        <li v-for="horaire in horaires">
-          {{ horaire }}
-        </li>
+				<li>L-V: 06:00 à 16:00</li>
+				<li>Samedi: 07:00 à 14:00</li>
+				<li>Dimanche: 07:00 à 12:00</li>
 			</ul>
 
 			<footer class="footer">
-				<p>{{ copyright }}</p>
+				<p>Copyright {{ restaurantName }} 2020</p>
 			</footer>
 		</div>
 
@@ -38,19 +63,71 @@
 			const app = new Vue({
 				el: "#app",
 				data: {
-					restaurantName: "Café avec vue",
-          Adresse : "18 avenue du Beurre, Paris, France",
-          Telephone : "01 88 88 88 88",
-          Email : "hello@cafewithavue.bakery",
-          horaires : ["L-V: 06:00 à 16:00", "Samedi: 07:00 à 14:00", "Dimanche: 07:00 à 12:00"],
+					address: "18 avenue du Beurre, Paris, France",
+					email: "hello@cafewithavue.bakery",
+					phone: "01 88 88 88 88",
+					restaurantName: "La belle vue",
+					simpleMenu: [
+						{
+							name: "Croissant",
+							image: {
+								source: "./images/croissant.jpg",
+								alt: "Un croissant"
+							},
+							inStock: true,
+							quantity: 1
+						},
+						{
+							name: "Baguette de pain",
+							image: {
+								source: "./images/french-baguette.jpeg",
+								alt: "Quatre baguettes de pain"
+							},
+							inStock: true,
+							quantity: 1
+						},
+						{
+							name: "Éclair",
+							image: {
+								source: "./images/eclair.jpg",
+								alt: "Éclair au chocolat"
+							},
+							inStock: false,
+							quantity: 1
+						}
+					],
+          shoppingCart: []
+				},
+        methods: {
+          addToShoppingCart(item) {
+    // Obtenez la quantité de l'input
+    const quantity = parseInt(document.getElementById("add-item-quantity").value);
+
+            // Assurez-vous que la quantité est valide
+            if (!isNaN(quantity) && quantity > 0) {
+              // Ajoutez l'article au panier avec la quantité
+              this.shoppingCart.push({ ...item, quantity });
+              console.log(this.shoppingCart);
+            } else {
+              // Affichez un message d'erreur si la quantité n'est pas valide
+              alert("Veuillez saisir une quantité valide (supérieure à zéro).");
+            }
+          }
         },
-        computed: {
-copyright() {
-  const restaurantName = this.restaurantName || '';
-  const currentYear = new Date().getFullYear();
-  return `Copyright © ${restaurantName} ${currentYear}`;
-},
-        }
+				computed: {
+					copyright() {
+						const currentYear = new Date().getFullYear()
+
+						return `Copyright ${this.restaurantName} ${currentYear}`
+					},
+          totalCartItems() {
+            return this.shoppingCart.reduce((total, item) => 
+              total + item.quantity,0
+            )
+            return total
+            console.log("total", total,"shoppingCart",this.shoppingCart );
+          }
+				}
 			})
 		</script>
 	</body>
