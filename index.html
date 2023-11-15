@@ -1,13 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="./styles.css" />
+		<title>Cafe with a Vue</title>
+	</head>
+	<body>
+		<div id="app" class="app">
+			<h1>{{ restaurantName }}</h1>
+			<p class="description">
+				Bienvenue dans notre café {{ restaurantName }}! Nous sommes réputés pour
+				notre pain et nos merveilleuses pâtisseries. Faites vous plaisir dès le
+				matin ou avec un goûter réconfortant. Mais attention, vous verrez qu'il
+				est difficile de s'arrêter.
+			</p>
+
+			<h2>Contactez nous</h2>
+			<p>Adresse : {{ Adresse }}</p>
+			<p>Téléphone : {{ Telephone }}</p>
+			<p>Email : {{ Email }}</p>
+			<p>Horaires :</p>
+			<ul>
+        <li v-for="horaire in horaires">
+          {{ horaire }}
+        </li>
+			</ul>
+
+			<footer class="footer">
+				<p>{{ copyright }}</p>
+			</footer>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: "#app",
+				data: {
+					restaurantName: "Café avec vue",
+          Adresse : "18 avenue du Beurre, Paris, France",
+          Telephone : "01 88 88 88 88",
+          Email : "hello@cafewithavue.bakery",
+          horaires : ["L-V: 06:00 à 16:00", "Samedi: 07:00 à 14:00", "Dimanche: 07:00 à 12:00"],
+        },
+        computed: {
+copyright() {
+  const restaurantName = this.restaurantName || '';
+  const currentYear = new Date().getFullYear();
+  return `Copyright © ${restaurantName} ${currentYear}`;
+},
+        }
+			})
+		</script>
+	</body>
 </html>
