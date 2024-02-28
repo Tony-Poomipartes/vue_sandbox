@@ -1,9 +1,31 @@
+body {
+  background-color: rgb(94, 97, 88);
+}
+
 .app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: rgb(238, 244, 226);
+  border-radius: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+h1 {
+  font-size: 4rem;
+
+}
+
+h1, h2 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-shadow: 1.5px 1px 0px rgba(53, 114, 73, 0.5);
+}
+
+li {
+  list-style: none;
 }
 
 .description {
@@ -15,6 +37,8 @@
 .footer {
   text-align: center;
   font-style: italic;
+  font-size: 1.1rem;
+  padding-bottom: 10px;
 }
 
 .menu {

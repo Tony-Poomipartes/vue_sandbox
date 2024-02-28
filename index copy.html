@@ -16,11 +16,16 @@
 				matin ou avec un goûter réconfortant. Mais attention, vous verrez qu'il
 				est difficile de s'arrêter.
 			</p>
-
 			<h2>Contactez nous</h2>
 			<p>Adresse : {{ Adresse }}</p>
 			<p>Téléphone : {{ Telephone }}</p>
 			<p>Email : {{ Email }}</p>
+      <div>
+        <button @click="toggleVisibility; incrementCounter">Toggle Visibility</button>
+        <div v-show="isVisible">
+          Content to show/hide
+        </div>
+      </div>
 			<p>Horaires :</p>
 			<ul>
         <li v-for="horaire in horaires">
@@ -38,6 +43,8 @@
 			const app = new Vue({
 				el: "#app",
 				data: {
+          counter: 0,
+          isVisible: true,
 					restaurantName: "Café avec Vue",
           Adresse : "18 avenue du Beurre, Paris, France",
           Telephone : "01 88 88 88 88",
@@ -45,11 +52,28 @@
           horaires : ["Lundi à Vendredi: 06:00 à 16:00", "Samedi: 07:00 à 14:00", "Dimanche: 07:00 à 12:00"],
         },
         computed: {
-copyright() {
-  const restaurantName = this.restaurantName || '';
-  const currentYear = new Date().getFullYear();
-  return `Copyright © ${restaurantName} ${currentYear}`;
-},
+          copyright() {
+            const restaurantName = this.restaurantName || '';
+            const currentYear = new Date().getFullYear();
+            return `Copyright © ${restaurantName} ${currentYear}`;
+          },
+        },
+        methods: {
+          toggleVisibility() {
+            this.isVisible = !this.isVisible;
+          },
+          incrementCounter() {
+            this.counter++;
+          },
+        },
+        watch: {
+          counter(newValue, oldValue) {
+              console.log(`La valeur de counter a changé : ${oldValue} -> ${newValue}`);
+            }
+          },
+        mounted() {
+      console.log("Instance Vue montée");
+    // Vous pouvez effectuer des opérations d'initialisation ici
         }
 			})
 		</script>
