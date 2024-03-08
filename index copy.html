@@ -21,9 +21,10 @@
 			<p>Téléphone : {{ Telephone }}</p>
 			<p>Email : {{ Email }}</p>
       <div>
-        <button @click="toggleVisibility; incrementCounter">Toggle Visibility</button>
+        <button @click="toggleVisibility(); incrementCounter()">Toggle Visibility</button>
+        <!-- <button @click="incrementCounter">Increment Counter</button> -->
         <div v-show="isVisible">
-          Content to show/hide
+          Content to show/hide{{ counter }}
         </div>
       </div>
 			<p>Horaires :</p>
@@ -37,7 +38,7 @@
 				<p>{{ copyright }}</p>
 			</footer>
 		</div>
-
+<!-- -->
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script>
 			const app = new Vue({
