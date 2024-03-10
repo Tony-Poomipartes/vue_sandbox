@@ -18,14 +18,17 @@ console.log("test 2", add(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
 let addArr =(arr) =>
 {
-  let sum = 0
-  for (const numbers of arr) {
-    if (numbers > 0) {
-      sum += numbers
+    let sum = 0
+    for (let i=0; i<arr.length; i++)
+    {
+
+    if (i>=0)
+    {
+      sum+=arr[i]
     }
   }
+  return sum
 }
-
 console.log("test 3");
 console.log("test 1", addArr([1, 2, 3, 4, 5]));
 console.log("test 2", addArr([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
